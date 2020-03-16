@@ -59,16 +59,22 @@ def parse_program_file():
         mem_part = []
 
         for line in file:
-            end = 0
             if line[-1] == '\n':
-                end = 1
-            if line[0] == '!':
-                assert len(line) == 5 + end, [line[:-1:], '5']
-                mem_init.append(mem_part)
-                mem_part = [line[1:-1:]]
+                if line[0] == '!':
+                    assert len(line) == 6, [line[:-1:], '5']
+                    mem_init.append(mem_part)
+                    mem_part = [line[1:-1:]]
+                else:
+                    assert len(line) == 5, [line[:-1:], '4']
+                    mem_part.append(line[:-1:])
             else:
-                assert len(line) == 4 + end, [line[:-1:], '4']
-                mem_part.append(line[:-1:])
+                if line[0] == '!':
+                    assert len(line) == 5, [line, '5']
+                    mem_init.append(mem_part)
+                    mem_part = [line[1::]]
+                else:
+                    assert len(line) == 4, [line, '4']
+                    mem_part.append(line)
         mem_init.append(mem_part)
         file.close()
         return start_program, mem_init[1::]
