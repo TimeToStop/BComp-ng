@@ -1,2 +1,2 @@
-data/memory/mem/*
-data/registers/reg/*
+data/memory/mem/m*
+data/registers/reg/r*
